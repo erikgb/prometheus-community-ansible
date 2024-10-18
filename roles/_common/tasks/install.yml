@@ -75,6 +75,14 @@
       run_once: true
       when: (_common_checksums_url)
 
+    - name: "Create {{ _common_local_cache_path }} directory if it does not exist"
+      ansible.builtin.file:
+        path: "{{ _common_local_cache_path }}"
+        state: directory
+        mode: '0755'
+      delegate_to: localhost
+      check_mode: false
+
     - name: "Download {{ __common_binary_basename }}"
       ansible.builtin.get_url:
         url: "{{ _common_binary_url }}"
